@@ -1,0 +1,101 @@
+html, body {
+	height: 100%;
+}
+
+.oculto {
+	display: none;
+}
+
+input {
+	padding: 0 10px;
+	height: 50px;
+	border: 1px solid #888;
+}
+
+input[name="login"] ~div[valuemissing="true"] {
+	display: block !important;
+}
+
+input[valid="false"] {
+	border: var(- -danger);
+}
+
+.vazio, .tamanho, .invalido {
+	background-color: var(--danger);
+	opacity: .5;
+	padding: 10px;
+	border-radius: 5px;
+	color: #fff;
+}
+
+.relative {
+	position: relative;
+}
+
+.show-password {
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 50px;
+	width: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center
+}
+
+.show-password svg {
+	border-radius: 50%;
+	padding: 5px;
+	transition: background 0.5s;
+}
+
+.show-password svg:hover {
+	/* 	background: #ccc linear-gradient(to right, #ccc, #ccc) 0/15000%;
+ */
+	background: #ddd radial-gradient(circle, transparent 1%, #ddd 1%)
+		center/15000%;
+}
+
+.show-password svg:active {
+	/* background: transparent 100%;
+	transition: 0s; */
+	background-color: transparent;
+	background-size: 100%;
+	transition: background 0s;
+}
+
+
+.frame {
+	display: flex;
+	justify-content:center;
+}
+
+.pic {
+	min-width: 150px;
+	min-height: 150px;
+	max-width: 400px;
+	max-height: 400px;
+	
+	width: 80%;
+	height:auto%;
+}
+
+#progress p
+{
+	display: block;
+	width: 240px;
+	padding: 2px 5px;
+	margin: 2px 0;
+	border: 1px inset #446;
+	border-radius: 5px;
+}
+
+#progress p.success
+{
+	background: #0c0 none 0 0 no-repeat;
+}
+
+#progress p.failed
+{
+	background: #c00 none 0 0 no-repeat;
+}
