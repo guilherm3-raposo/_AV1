@@ -1,3 +1,8 @@
+:root {
+	--danger: rgb(215,0,0);
+	--primary: rgb(78,135,211);
+}
+
 html, body {
 	height: 100%;
 }
@@ -22,7 +27,7 @@ input[valid="false"] {
 
 .vazio, .tamanho, .invalido {
 	background-color: var(--danger);
-	opacity: .5;
+	opacity: 1;
 	padding: 10px;
 	border-radius: 5px;
 	color: #fff;
@@ -52,8 +57,7 @@ input[valid="false"] {
 .show-password svg:hover {
 	/* 	background: #ccc linear-gradient(to right, #ccc, #ccc) 0/15000%;
  */
-	background: #ddd radial-gradient(circle, transparent 1%, #ddd 1%)
-		center/15000%;
+	background: #ddd radial-gradient(circle, transparent 1%, #ddd 1%) center/15000%;
 }
 
 .show-password svg:active {
@@ -64,24 +68,16 @@ input[valid="false"] {
 	transition: background 0s;
 }
 
-
 .frame {
 	display: flex;
-	justify-content:center;
+	justify-content: center;
 }
 
 .pic {
-	min-width: 150px;
-	min-height: 150px;
-	max-width: 400px;
 	max-height: 400px;
-	
-	width: 80%;
-	height:auto%;
 }
 
-#progress p
-{
+#progress p {
 	display: block;
 	width: 240px;
 	padding: 2px 5px;
@@ -90,12 +86,48 @@ input[valid="false"] {
 	border-radius: 5px;
 }
 
-#progress p.success
-{
+#progress p.success {
 	background: #0c0 none 0 0 no-repeat;
 }
 
-#progress p.failed
-{
+#progress p.failed {
 	background: #c00 none 0 0 no-repeat;
 }
+
+select {
+	width: 100px;
+	padding: 10px;
+	background-color: rgb(52, 58, 64);
+	color: #eee;
+}
+
+.imagem {
+	padding: 20px;
+}
+
+.imagem img {
+	max-height: 400px;
+	max-width: 100%;
+	float: right;
+}
+
+navbar {
+	width: 100%;
+}
+
+.pos-f-t a {
+	padding: 5px;
+	text-decoration: none;
+    color: #ddd;
+}
+
+
+.pos-f-t a:hover {
+	background-color: #555;
+	
+}
+
+.bg-light-gray {
+	background: #bbb;
+}
+

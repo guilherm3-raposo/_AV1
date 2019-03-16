@@ -1,11 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="model.beans.ProvaBean"%>
 
+<html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<html>
+
+
+<%@page import="java.io.PrintWriter"%>
+<sql:setDataSource var="ds"
+					url="jdbc:mysql://localhost:3306/av1?useSSL=true&serverTimezone=America/Sao_Paulo" 
+					user="root"
+					password="12345"
+					scope="session"/>
 
 <head>
 
@@ -37,35 +43,26 @@
 </head>
 
 <body class="d-flex justify-content-center align-items-lg-center">
-	
-	<div class="jumbotron col-xs-12 col-sm-9 col-md-6">
-		<div>${param.nome}</div>
-		<div>${param.questoes}</div>
-		<div>${param.observacoes}</div>
-		<div>${param.data}</div>
-		<img src="${param.base64}" class="pic"></img>
-		<div>${param.erro}</div>
-		
+	<c:catch var="erroNoInsert">
+		<sql:transaction dataSource="${ds}">
+			<sql:update var="cadPessoa">
+				INSERT INTO provas (prova, questoes, observacao, dataHora, md5) VALUES (?,?,?,?,?);
+				<sql:param value="${param['nome']}"></sql:param>
+				<sql:param value="${param['questoes']}"></sql:param>
+				<sql:param value="${param['observacoes']}"></sql:param>
+				<fmt:parseDate value="${param['horaData']}" var="dataOK" pattern="yyyy-MM-dd HH:mm:ss"/>
+				<sql:dateParam value="${dataOK}"></sql:dateParam>
+				<sql:param value="${param['md5']}"></sql:param>
+			</sql:update>
+		</sql:transaction>
+	</c:catch>
+	<div>
+		<c:out value="${param.nome}" />
 	</div>
-	<script>
-		function updateImagem(imagem) {
-			let imagemPrevia = document.getElementById("imagemPrevia");
-			let leitor = new FileReader();
-			
-			leitor.onload = function(imagem) {
-				let resultado = imagem.target.result; // <--- base64
-				imagemPrevia.src = resultado;
-			}
-
-			leitor.readAsDataURL(imagem.files[0])
-		}
-		function getDataHora(obj) {
-			let data = new Date();
-			let dataHora = data.getFullYear() + "-" + data.getMonth() + "-" +
-			data.getDate() + " " + data.getHours() + ":" + data.getMinutes();
-			console.log(dataHora);
-		}
-	</script>
+	<jsp:forward page="/UploadServlet.html"> 
+		<jsp:param name="idProva" value="${param.nome}"/>
+		<jsp:param name="img64" value="${param.base64}" /> 
+	</jsp:forward>
 </body>
 
 </html>

@@ -7,17 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import model.bd.conexao.Conexao;
 import model.beans.ProvaBean;
 
 public class ProvaDAO {
 	private static ProvaBean constroiProva(ResultSet rs) throws SQLException, IOException {
-		ProvaBean prova = new ProvaBean(rs.getString("prova"), rs.getString("md5"),
-							 new String(rs.getBytes("questoes"), StandardCharsets.UTF_8),
-							 new String(rs.getBytes("base64"), StandardCharsets.UTF_8),
-							 new String(rs.getBytes("observacao"), StandardCharsets.UTF_8), 
-									    rs.getString("dataHora"));
+		ProvaBean prova = new ProvaBean(rs.getString("prova"),
+				new String(rs.getBytes("base64"), StandardCharsets.UTF_8));
 		return prova;
 	}
 
@@ -35,17 +34,29 @@ public class ProvaDAO {
 		return null;
 	}
 
-	public boolean insere(ProvaBean prova) throws SQLException {
+	public Map<String, String> consultaTodos() throws SQLException, IOException {
+		Connection conexao = Conexao.abreConexao();
+		Statement st = conexao.createStatement();
+		ResultSet rs = st.executeQuery("SELECT * FROM provas;");
+		ProvaBean prova;
+		Map<String, String> provas = new HashMap<String, String>();
+		try {
+			while (rs.next()) {
+				prova= constroiProva(rs);
+				provas.put(prova.getIdProva(), prova.getBase64());
+			}
+		} finally {
+			Conexao.fechaConexao();
+		}
+		return provas;
+	}
+
+	public boolean update(ProvaBean prova) throws SQLException {
 		Connection conexao = Conexao.abreConexao();
 
-
-		PreparedStatement pst = conexao.prepareStatement(
-				"INSERT INTO provas (prova, questoes, observacao, dataHora, base64) VALUES (?, ?, ?, ?, ?);");
-		pst.setString(1, prova.getIdProva());
-		pst.setBytes(2, prova.getQuestoes().getBytes());
-		pst.setBytes(3, prova.getObservacoes().getBytes());
-		pst.setString(4, prova.getData());
-		pst.setBytes(5, prova.getBase64().getBytes());
+		PreparedStatement pst = conexao.prepareStatement("UPDATE provas SET base64 = ? WHERE prova = ?");
+		pst.setBytes(1, prova.getBase64().getBytes());
+		pst.setString(2, prova.getIdProva());
 		pst.executeUpdate();
 		return true;
 	}
