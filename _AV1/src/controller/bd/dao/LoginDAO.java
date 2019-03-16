@@ -1,11 +1,11 @@
-package model.bd.dao;
+package controller.bd.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import model.bd.conexao.Conexao;
+import controller.bd.conexao.Conexao;
 import model.beans.LoginBean;
 
 

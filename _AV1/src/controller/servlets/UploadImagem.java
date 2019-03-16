@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.bd.dao.ProvaDAO;
+import controller.bd.dao.ProvaDAO;
 import model.beans.ProvaBean;
 
 /**

@@ -1,4 +1,4 @@
-package model.bd.dao;
+package controller.bd.dao;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.bd.conexao.Conexao;
+import controller.bd.conexao.Conexao;
 import model.beans.ProvaBean;
 
 public class ProvaDAO {

@@ -1,4 +1,4 @@
-package model.bd.conexao;
+package controller.bd.conexao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

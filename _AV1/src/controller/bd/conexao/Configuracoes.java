@@ -1,4 +1,4 @@
-package model.bd.conexao;
+package controller.bd.conexao;
 
 import java.io.File;
 import java.io.FileInputStream;
